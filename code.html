@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <title>APP NAME: A Coding Project by SJ Wonder</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    <!--using font awesome-->
+    <script src="https://kit.fontawesome.com/5db21ba9c6.js" crossorigin="anonymous"></script>
+    <link href="css/site.css" rel="stylesheet" />
+    <link rel="icon" type="img/png" href="img/favicon/favicon-32x32.png" />
+    <link href="/css/prism.css" rel="stylesheet" />
+    <!--add ADOBE FONTS LINK HERE-->
+    <link rel="stylesheet" href="https://use.typekit.net/liw5mjc.css">
+</head>
+
+<body class="d-flex flex-column h-100">
+    <!--Nav section-->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand logoFont" href="#"><img src="img/logoMarkWhite.png" class="p-1" width="30"
+                    height="39" />
+                APP NAME</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/app.html">The App</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/code.html">The Code</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://github.com/ShellyWonder">Git Repo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="/contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--Main section-->
+    <main class="flex-shrink-0">
+        <div class="container py-5 px-5 mt-5">
+            <h2 class="border-1 border-bottom border-dark">The Code for <span class="logoFont">.JS FIZZ BUZZ</span></h2>
+            <div class="row row-cols-1 row-cols-lg-2">
+                <!--CODE EMBED-->
+                <div class="col-lg-8">
+                    <pre class="line-numbers">
+            <code class="language-javascript">
+                <!--PLACEHOLD CONTENT CHANGE-->
+                
+              //get values from the DOM: fizzValue & buzzValue;
+function getValues() {
+  let fizzValue = document.getElementById("fizzValue").value;
+  let buzzValue = document.getElementById("buzzValue").value;
+
+  //VALIDATION:
+  //Parse for numbers
+  fizzValue = parseInt(fizzValue);
+  buzzValue = parseInt(buzzValue);
+  // convert strings to integers;
+  if (Number.isInteger(fizzValue) && Number.isInteger(buzzValue)) {
+    /*LOGIC: CALL fizzBuzz--replace fizzBuzzA with 
+    alternative functions fizzBuzzB &fizzBuzzC 
+    HERE to test them*/
+    let fbArray = fizzBuzzA(fizzValue, buzzValue);
+    //CALL displayData & write values to the screen;
+    displayData(fbArray);
+  } else {
+    alert("You must enter an integer.");
+  }
+
+  }
+  //DISPLAY:DO FIZZBUZZ
+//alternate solution A:
+function fizzBuzzA(fizzValue, buzzValue) {
+  let returnArray = [];
+  //loop 1-100
+  for (let i = 1; i <= 100; i++) {
+    //Replace the number feature:
+    //number / fizzValue && number / buzzValue =FizzBuzz
+    if (i % fizzValue == 0 && i % buzzValue == 0) {
+      returnArray.push("FizzBuzz");
+    } else if (i % fizzValue == 0) {
+      // number / fizzValue = Fizz;
+      returnArray.push("Fizz");
+    } else if (i % buzzValue == 0) {
+      //number / buzzValue = Buzz;
+      returnArray.push("Buzz");
+    } else {
+      /*IF none of the above conditions apply to 
+      the number(i), push (i) into returnArray;*/
+      returnArray.push(i);
+    }
+  }
+
+  return returnArray;
+}
+/*alternate solution B: using a SWITCH statement; 
+to test, chng function called 
+on line 13 to fizzBuzzB*/
+function fizzBuzzB(fizzValue, buzzValue) {
+  let returnArray = [];
+  //declaring the booleans:
+  let Fizz = false;
+  let Buzz = false;
+  for (let i = 1; i<= 100; i++) {
+    Fizz = i % fizzValue === 0;
+    Buzz = i % buzzValue === 0;
+
+    switch (true) {
+      case Fizz && Buzz: {
+        returnArray.push("FizzBuzz");
+        break;
+      }
+      case Fizz: {
+        returnArray.push("Fizz");
+        break;
+      }
+      case Buzz: {
+        returnArray.push("Buzz");
+        break;
+      }
+      default: {
+        returnArray.push(i);
+        break;
+      }
+    }
+  }
+  return returnArray;
+}
+/*alternate solution C: using a ternary operator
+(most compact--one line); to test, 
+chng function called on line 13 to fizzBuzzC*/
+function fizzBuzzC(fizzValue, buzzValue) {
+  let returnArray = [];
+  for (let i = 1; i <= 100; i++) {
+    let value =
+      (i % fizzValue == 0 ? "Fizz" : "") +
+      (i % buzzValue == 0 ? "Buzz" : "") || i);
+    returnArray.push(value);
+  }
+  return returnArray;
+}
+/*loop over the array and create a tablerow for each item. (inserted into td's)*/
+function displayData(fbArray) {
+  //get tbody element from DOM
+  let tableBody = document.getElementById("results");
+
+  //get template element from DOM
+  let templateRow = document.getElementById("fbTemplate");
+  //clear table
+  tableBody.innerHTML = "";
+  for (let index = 0; index< fbArray.length; index += 5) {
+    let tableRow = document.importNode(templateRow.content, true);
+    
+    /*creates the individual rows for the "td"s 
+    by putting them into array; modular approach to HTML
+     construction without template literals; 
+     dumps into the HTML fragment*/
+
+    let rowCols = tableRow.querySelectorAll("td");
+
+    rowCols[0].classList.add(fbArray[index]);
+    rowCols[0].textContent = fbArray[index];
+
+    rowCols[1].classList.add(fbArray[index + 1]);
+    rowCols[1].textContent = fbArray[index + 1];
+
+    rowCols[2].classList.add(fbArray[index + 2]);
+    rowCols[2].textContent = fbArray[index + 2];
+
+    rowCols[3].classList.add(fbArray[index + 3]);
+    rowCols[3].textContent = fbArray[index + 3];
+
+    rowCols[4].classList.add(fbArray[index + 4]);
+    rowCols[4].textContent = fbArray[index + 4];
+
+    tableBody.appendChild(tableRow);
+  }
+}
+            </code>
+          </pre>
+                </div>
+                <!--placeholder content CHANGE-->
+                <!--CODE EXPLANATION-->
+                <div class="col-lg-4">
+                    <p>The code solves the classic interview question with three (3) possible iterators.</p>
+                    <h5 class="logoFont">.JS FIZZ BUZZ</h5>
+                    <p>
+                        As the quintessential JavaScript interview question, this coding exercise
+                        loops through and displays numbers 1 to 100. Numbers divisible by
+                        user input, <strong>Fizz</strong> are replaced by the word,<span class="logoFont Fizz">
+                            Fizz</span>. Numbers divisible by user input, <strong>Buzz</strong> are
+                        replaced by the word, <span class="logoFont Buzz">Buzz</span>.
+                        When a number is divisible by both <strong>Fizz </strong> AND
+                        <strong>Buzz </strong> it is replaced by the word,
+                        <span class="logoFont FizzBuzz">FizzBuzz</span>.
+
+                    </p>
+                    <h4>Brief code overview:</h4>
+                    <ul>
+                        <li><strong> Initiation:</strong>
+                            <ul>
+                                <li> the event listener (located in the bottom &lt;script&gt; tag on the app page) is
+                                    triggered by a
+                                    <em>click</em> on the <em>submit</em> button;
+                                </li><br>
+                                <li>values from the two user input fields (<em>fizzValue</em> and <em>buzzValue</em>)
+                                    are passed into
+                                    the <em>Get Values</em> function;</li><br>
+                            </ul>
+
+                        </li>
+                        <li><strong>Validation: </strong>
+                            <ul>
+                                <li>inputs are checked to make certain they are integers (numbers) and not strings;</li>
+                                <br>
+
+                                <li>if inputs are numbers treated as strings, the program parses them to integers;</li>
+                                <br>
+                                <li>If inputs are text, the system will alert the user, "You must enter numbers";</li>
+                                <br>
+                            </ul>
+                        </li>
+                        <li><strong>Logic: </strong>
+                            <p> When the <em>fizzBuzz</em> function is called by declaring <em>fbArray</em>, the
+                                following processes
+                                occur:
+                            </p>
+                            <ul>
+                                <li>the <em>returnArray</em> array is created;</li> <br>
+
+                                <li>the <em>for</em> loop begins at one (1) and increments the number by one until the
+                                    incremented
+                                    number is equal to 100;</li><br>
+                                <li>each incremented number passes through a boolean test(s) to determine if the number
+                                    is to be
+                                    replaced by the word, <span class="logoFont Fizz">Fizz</span>, <span
+                                        class="logoFont Buzz">Buzz
+                                    </span> or <span class="logoFont FizzBuzz">FizzBuzz</span> (more information in the
+                                    <strong>Display</strong> section below); </li><br>
+                                <li>results of each iteration is passed to the <em>returnArray</em> array; </li><br>
+                                <li>the function returns the <em>returnArray</em> array;</li><br>
+                            </ul>
+                    </ul>
+                    </ul>
+                    </li>
+                    </ul>
+
+                    </li>
+                    <ul>
+                        <li><strong>Display: </strong></li>
+
+                        <li>Inside the <em>for</em> loop: </li>
+                        <ul>
+                            <li>A boolean tests each number for the following conditions: </li><br>
+                            <ul>
+                                <li>Numbers divisible by <em>Fizz</em> AND <em>Buzz</em> are pushed to the
+                                    <em>returnArray</em> array as
+                                    <span class="logoFont FizzBuzz">FizzBuzz</span> ;</li><br>
+                                <li>Numbers divisible by <em>Fizz</em> are pushed to the <em>returnArray</em> array as
+                                    <span class="logoFont Fizz">Fizz</span> ;</li><br>
+                                <li>Numbers divisible by <em>Buzz</em> are pushed to the <em>returnArray</em> array as
+                                    <span class="logoFont Buzz">Buzz</span> ;
+                                </li><br>
+
+                                <li>Numbers testing <strong>false</strong> for all conditions are pushed to the
+                                    <em>returnArray</em>
+                                    array unchanged;</li><br>
+                            </ul>
+                            <li>The .js file to the left gives three possible ways to test the iterators:</li><br>
+                            <ul>
+                                <li>if/if else/else statement&#40;see <em>function fizzBuzzA</em>&#41;;</li>
+                                <li>switch case statement&#40;see <em>function fizzBuzzB</em>&#41;;</li>
+                                <li>ternary operator&#40;see <em>function fizzBuzzC</em>&#41;;</li><br>
+                            </ul>
+                        </ul>
+                        <li>Display table:<ul><br>
+                                <li>created using an HTML fragment as an alternative to template literals;</li>
+                                <li>table rows&#40;in this case, five cells across&#41; are populated by the
+                                    <em>for</em> loop passing
+                                    data to the <em>fbArray</em> when the <em>displayData </em>function is called;</li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    </ul>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--footer section-->
+    <footer class="footer mt-auto py-3 bg-dark sticky-footer">
+        <div class="container-fluid">
+            <div class="row row-cols-1 row-cols-lg-3 gy-2">
+                <div class="col order-last order-lg-first text-light">
+                    <div>
+                        <span class="text-muted">&copy;2021</span>&nbsp;SJ Wonder |
+                        <a href="mailto:shelly@wonderwebdev.com"> shelly@wonderwebdev.com</a>
+                    </div>
+                </div>
+                <div class="
+              col
+              d-flex
+              align-items-center
+              justify-content-start justify-content-lg-center
+            ">
+                    <img src="img/White logo - no background.svg" alt="SJ Wonder Logo" height="65" />
+                </div>
+                <!--using font awesome for social media icons-->
+                <div class="
+              col
+              d-flex
+              align-items-center
+              justify-content-start justify-content-lg-end
+            ">
+                    <div class="row">
+                        <div class="col social">
+                            <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+                        </div>
+                        <div class="col social">
+                            <a href="https://github.com/ShellyWonder"><i class="fab fa-github fa-2x"></i></a>
+                        </div>
+                        <div class="col social">
+                            <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--container close tag-->
+        </div>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+    <!--INLINE Prism JS-->
+    <script src="/js/prism.js"></script>
+    <script>
+        Prism.plugins.NormalizeWhitespace.setDefaults({
+            "remove-trailing": true,
+            "remove-indent": true,
+            "left-trim": true,
+            "right-trim": true,
+        });
+    </script>
+</body>
+
+</html>
