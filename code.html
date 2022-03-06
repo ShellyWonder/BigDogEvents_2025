@@ -23,7 +23,7 @@
     <!--Nav section-->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand logoFont" href="#"><img src="img/logoMarkWhite.png" class="p-1" width="30"
+            <a class="navbar-brand logoFont" href="index.html"><img src="img/logoMarkWhite.png" class="p-1" width="30"
                     height="39" />BIG DOG EVENTS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,13 +32,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                        <a class="nav-link " href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/app.html">The App</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/code.html">The Code</a>
+                        <a class="nav-link active" aria-current="page" href="/code.html">The Code</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://github.com/ShellyWonder/BigDogEvents_2022">Git
@@ -61,154 +61,190 @@
                     <pre class="line-numbers">
             <code class="language-javascript">
                 <!--PLACEHOLD CONTENT CHANGE-->
-                
-              //get values from the DOM: fizzValue & buzzValue;
-function getValues() {
-  let fizzValue = document.getElementById("fizzValue").value;
-  let buzzValue = document.getElementById("buzzValue").value;
+            const events = [{
+            id: 1,
+            event: "ComicCon",
+            city: "New York",
+            state: "New York",
+            attendance: 240000,
+            date: "06/01/2017",
+            },
+            {
+            id: 2,
+            event: "ComicCon",
+            city: "New York",
+            state: "New York",
+            attendance: 250000,
+            date: "06/01/2018",
+            },
+            {
+            id: 3,
+            event: "ComicCon",
+            city: "New York",
+            state: "New York",
+            attendance: 257000,
+            date: "06/01/2019",
+            },
+            {
+            id: 4,
+            event: "ComicCon",
+            city: "San Diego",
+            state: "California",
+            attendance: 130000,
+            date: "06/01/2017",
+            },
+            {
+            id: 5,
+            event: "ComicCon",
+            city: "San Diego",
+            state: "California",
+            attendance: 140000,
+            date: "06/01/2018",
+            },
+            {
+            id: 6,
+            event: "ComicCon",
+            city: "San Diego",
+            state: "California",
+            attendance: 150000,
+            date: "06/01/2019",
+            },
+            {
+            id: 7,
+            event: "HeroesCon",
+            city: "Charlotte",
+            state: "North Carolina",
+            attendance: 40000,
+            date: "06/01/2017",
+            },
+            {
+            id: 8,
+            event: "HeroesCon",
+            city: "Charlotte",
+            state: "North Carolina",
+            attendance: 45000,
+            date: "06/01/2018",
+            },
+            {
+            id: 9,
+            event: "HeroesCon",
+            city: "Charlotte",
+            state: "North Carolina",
+            attendance: 50000,
+            date: "06/01/2019",
+            },
+            ];
+            
+            //builds dropdrown of locales
+            function buildDropDown() {
+            //grab the event drop down we want to add cities to:
+            let eventDD = document.getElementById("eventDropDown");
+            eventDD.innerHTML = "";
+            //load links from template
+            let ddTemplate = document.getElementById("cityDD-template");
+            
+            let curEvents = JSON.parse(localStorage.getItem("eventsArray")) || events;
+            //map the city property to a new array
+            let cities = curEvents.map((e) => e.city);
+            //list of cities--create distinct list--no dupes--filter array
+            
+            let distinctCities = [...new Set(cities)];
+            
+            //Use the template construction for the dropdown
+            let ddItemTemplate = document.importNode(ddTemplate.content, true);
+            let li = ddItemTemplate.querySelector("li")
+            let ddItem = ddItemTemplate.querySelector("a");
+            ddItem.setAttribute("data-city", "All");
+            ddItem.textContent = "All";
+            eventDD.appendChild(li);
+            
+            for (let index = 0; index < distinctCities.length; index++) { ddItemTemplate=document.importNode(ddTemplate.content,
+                true); li=ddItemTemplate.querySelector("li") ddItem=ddItemTemplate.querySelector("a");
+                ddItem.setAttribute("data-city", distinctCities[index]); ddItem.innerHTML=distinctCities[index];
+                eventDD.appendChild(li); } //display the stats displayStats(curEvents); displayData(); } function
+                displayStats(filteredEvents) { let total=0; let average=0; let most=0; let least=-1; let currentAttendance=0; for
+                (let index=0; index < filteredEvents.length; index++) { currentAttendance=filteredEvents[index].attendance; total
+                +=currentAttendance; if (most < currentAttendance) { most=currentAttendance; } //least calculation if (least==-1 ||
+                least> currentAttendance) {
+                least = currentAttendance;
+                }
+            
+            
+                //average is done outside the loop
+                average = total / filteredEvents.length;
+            
+                }
+            
+                document.getElementById("total").innerHTML = total.toLocaleString();
+                document.getElementById("most").innerHTML = most.toLocaleString();
+                document.getElementById("least").innerHTML = least.toLocaleString();
+                document.getElementById("average").innerHTML = average.toLocaleString(
+                "en-US", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+                }
+                );
+                }
+                //show events f specific locale
+                //user selected city --function fires
+                function getEvents(element) {
+                let city = element.getAttribute("data-city");
+                curEvents = JSON.parse(localStorage.getItem("eventsArray")) || events;
+            
+                let filteredEvents = curEvents;
+                //filter events based on city selected
+                //new filter function
+                if (city != "All") {
+                filteredEvents = curEvents.filter(function (event) {
+                if (event.city == city) {
+                return event;
+                }
+                })
+                }
+                document.getElementById("statsHeader").innerHTML = `Stats for ${city} Events`
+            
+                //display the states for selected city
+                displayStats(filteredEvents);
+                }
+                //display all the events on page
+                function displayData() {
+                let template = document.getElementById("eventData-template");
+                let eventBody = document.getElementById("eventBody");
+                eventBody.innerHTML = "";
+                let curEvents = JSON.parse(localStorage.getItem("eventsArray")) || [];
+                if (curEvents.length == 0) {
+                curEvents = events;
+                localStorage.setItem("eventsArray", JSON.stringify(curEvents));
+                }
+                for (let index = 0; index < curEvents.length; index++) { let eventRow=document.importNode(template.content, true);
+                    let eventCols=eventRow.querySelectorAll("td"); eventCols[0].textContent=curEvents[index].event;
+                    eventCols[1].textContent=curEvents[index].city; eventCols[2].textContent=curEvents[index].state;
+                    eventCols[3].textContent=curEvents[index].attendance; eventCols[4].textContent=curEvents[index]=new Date(
+                    curEvents[index].date).toLocaleDateString(); eventBody.appendChild(eventRow); } } function saveData() { let
+                    curEvents=JSON.parse(localStorage.getItem("eventsArray")) || events; let obj={};
+                    obj["event"]=document.getElementById("newEventName").value;
+                    obj["city"]=document.getElementById("newEventCity").value; let
+                    stateSel=document.getElementById("newEventState"); obj["state"]=stateSel.options[stateSel.selectedIndex].text;
+                    obj["attendance"]=parseInt(document.getElementById("newEventAttendance").value, 10); let
+                    eventDate=document.getElementById("newEventDate").value; let eventDate2=`${eventDate} 00:00`; obj["date"]=new
+                    Date(eventDate2).toLocaleString(); curEvents.push(obj); localStorage.setItem("eventsArray",
+                    JSON.stringify(curEvents)); buildDropDown(); displayData(); }
+              
+                    }
+ 
 
-  //VALIDATION:
-  //Parse for numbers
-  fizzValue = parseInt(fizzValue);
-  buzzValue = parseInt(buzzValue);
-  // convert strings to integers;
-  if (Number.isInteger(fizzValue) && Number.isInteger(buzzValue)) {
-    /*LOGIC: CALL fizzBuzz--replace fizzBuzzA with 
-    alternative functions fizzBuzzB &fizzBuzzC 
-    HERE to test them*/
-    let fbArray = fizzBuzzA(fizzValue, buzzValue);
-    //CALL displayData & write values to the screen;
-    displayData(fbArray);
-  } else {
-    alert("You must enter an integer.");
-  }
-
-  }
-  //DISPLAY:DO FIZZBUZZ
-//alternate solution A:
-function fizzBuzzA(fizzValue, buzzValue) {
-  let returnArray = [];
-  //loop 1-100
-  for (let i = 1; i <= 100; i++) {
-    //Replace the number feature:
-    //number / fizzValue && number / buzzValue =FizzBuzz
-    if (i % fizzValue == 0 && i % buzzValue == 0) {
-      returnArray.push("FizzBuzz");
-    } else if (i % fizzValue == 0) {
-      // number / fizzValue = Fizz;
-      returnArray.push("Fizz");
-    } else if (i % buzzValue == 0) {
-      //number / buzzValue = Buzz;
-      returnArray.push("Buzz");
-    } else {
-      /*IF none of the above conditions apply to 
-      the number(i), push (i) into returnArray;*/
-      returnArray.push(i);
-    }
-  }
-
-  return returnArray;
-}
-/*alternate solution B: using a SWITCH statement; 
-to test, chng function called 
-on line 13 to fizzBuzzB*/
-function fizzBuzzB(fizzValue, buzzValue) {
-  let returnArray = [];
-  //declaring the booleans:
-  let Fizz = false;
-  let Buzz = false;
-  for (let i = 1; i<= 100; i++) {
-    Fizz = i % fizzValue === 0;
-    Buzz = i % buzzValue === 0;
-
-    switch (true) {
-      case Fizz && Buzz: {
-        returnArray.push("FizzBuzz");
-        break;
-      }
-      case Fizz: {
-        returnArray.push("Fizz");
-        break;
-      }
-      case Buzz: {
-        returnArray.push("Buzz");
-        break;
-      }
-      default: {
-        returnArray.push(i);
-        break;
-      }
-    }
-  }
-  return returnArray;
-}
-/*alternate solution C: using a ternary operator
-(most compact--one line); to test, 
-chng function called on line 13 to fizzBuzzC*/
-function fizzBuzzC(fizzValue, buzzValue) {
-  let returnArray = [];
-  for (let i = 1; i <= 100; i++) {
-    let value =
-      (i % fizzValue == 0 ? "Fizz" : "") +
-      (i % buzzValue == 0 ? "Buzz" : "") || i);
-    returnArray.push(value);
-  }
-  return returnArray;
-}
-/*loop over the array and create a tablerow for each item. (inserted into td's)*/
-function displayData(fbArray) {
-  //get tbody element from DOM
-  let tableBody = document.getElementById("results");
-
-  //get template element from DOM
-  let templateRow = document.getElementById("fbTemplate");
-  //clear table
-  tableBody.innerHTML = "";
-  for (let index = 0; index< fbArray.length; index += 5) {
-    let tableRow = document.importNode(templateRow.content, true);
-    
-    /*creates the individual rows for the "td"s 
-    by putting them into array; modular approach to HTML
-     construction without template literals; 
-     dumps into the HTML fragment*/
-
-    let rowCols = tableRow.querySelectorAll("td");
-
-    rowCols[0].classList.add(fbArray[index]);
-    rowCols[0].textContent = fbArray[index];
-
-    rowCols[1].classList.add(fbArray[index + 1]);
-    rowCols[1].textContent = fbArray[index + 1];
-
-    rowCols[2].classList.add(fbArray[index + 2]);
-    rowCols[2].textContent = fbArray[index + 2];
-
-    rowCols[3].classList.add(fbArray[index + 3]);
-    rowCols[3].textContent = fbArray[index + 3];
-
-    rowCols[4].classList.add(fbArray[index + 4]);
-    rowCols[4].textContent = fbArray[index + 4];
-
-    tableBody.appendChild(tableRow);
-  }
-}
             </code>
           </pre>
                 </div>
                 <!--placeholder content CHANGE-->
                 <!--CODE EXPLANATION-->
                 <div class="col-lg-4">
-                    <p>The code solves the classic interview question with three (3) possible iterators.</p>
-                    <h5 class="logoFont">.JS FIZZ BUZZ</h5>
+                    <p>Like a bloodhound, Big Dog Event tracks, sorts and displays all your favorite events.</p>
+                    <h5 class="logoFont">BIG DOG EVENTS</h5>
                     <p>
-                        As the quintessential JavaScript interview question, this coding exercise
-                        loops through and displays numbers 1 to 100. Numbers divisible by
-                        user input, <strong>Fizz</strong> are replaced by the word,<span class="logoFont Fizz">
-                            Fizz</span>. Numbers divisible by user input, <strong>Buzz</strong> are
-                        replaced by the word, <span class="logoFont Buzz">Buzz</span>.
-                        When a number is divisible by both <strong>Fizz </strong> AND
-                        <strong>Buzz </strong> it is replaced by the word,
-                        <span class="logoFont FizzBuzz">FizzBuzz</span>.
+                        The code utilizes two HTML templates, two modals and local storage to create a program that will display user-requested
+                        data(via drop down selection) and allows the user to add events (via a drop down form) that are displayed on screen and
+                        stored locally.</p>
 
                     </p>
                     <h4>Brief code overview:</h4>
@@ -332,7 +368,7 @@ function displayData(fbArray) {
             ">
                 <div class="row">
                     <div class="col social">
-                        <a href="#"><i class="fab fa-linkedin fa-2x "></i></a>
+                        <a href="https://www.linkedin.com/in/shelly-wonder-153990233/"><i class="fab fa-linkedin fa-2x "></i></a>
                     </div>
                     <div class="col social">
                         <a href="https://github.com/ShellyWonder" target="_blank"><i
