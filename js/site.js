@@ -102,8 +102,6 @@ function buildDropDown() {
         ddItem.setAttribute("data-city", distinctCities[index]);
         ddItem.innerHTML = distinctCities[index];
         eventDD.appendChild(li);
-
-
     }
     //display the stats
     displayStats(curEvents);
@@ -188,7 +186,6 @@ function displayData() {
             curEvents[index].date).toLocaleDateString();
 
         eventBody.appendChild(eventRow);
-
     }
 }
 
