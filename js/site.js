@@ -1,8 +1,11 @@
 import { events, getEvents } from "./events.js";
+import { populateStateDropdown } from "./states.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
     buildDropDown();
     updateCopyrightYear();
+    populateStateDropdown();
     window.getEvents = getEvents;
 });
 //builds dropdrown of locales
