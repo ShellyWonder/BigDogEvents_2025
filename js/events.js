@@ -1,3 +1,5 @@
+import { displayStats } from "./site.js";
+
 export const events = [{
     id: 1,
     event: "ComicCon",
@@ -71,3 +73,23 @@ export const events = [{
     date: "06/01/2019",
 },
 ];
+
+export function getEvents(element) {
+    let city = element.getAttribute("data-city");
+    let curEvents = JSON.parse(localStorage.getItem("eventsArray")) || events;
+
+    let filteredEvents = curEvents;
+    //filter events based on city selected
+    //new filter function
+    if (city != "All") {
+        filteredEvents = curEvents.filter(function (event) {
+            if (event.city == city) {
+                return event;
+            }
+        })
+    }
+    document.getElementById("statsHeader").innerHTML = `Stats for ${city} Events`
+
+    //display the states for selected city
+    displayStats(filteredEvents);
+}

@@ -1,8 +1,9 @@
-import { events } from "./events.js";
+import { events, getEvents } from "./events.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     buildDropDown();
     updateCopyrightYear();
+    window.getEvents = getEvents;
 });
 //builds dropdrown of locales
 function buildDropDown() {
@@ -40,7 +41,7 @@ function buildDropDown() {
     displayData();
 }
 
-function displayStats(filteredEvents) {
+export function displayStats(filteredEvents) {
     let total = 0;
     let average = 0;
     let most = 0;
@@ -77,25 +78,7 @@ function displayStats(filteredEvents) {
 }
 //show events f specific locale
 //user selected city --function fires
-function getEvents(element) {
-    let city = element.getAttribute("data-city");
-    curEvents = JSON.parse(localStorage.getItem("eventsArray")) || events;
 
-    let filteredEvents = curEvents;
-    //filter events based on city selected
-    //new filter function
-    if (city != "All") {
-        filteredEvents = curEvents.filter(function (event) {
-            if (event.city == city) {
-                return event;
-            }
-        })
-    }
-    document.getElementById("statsHeader").innerHTML = `Stats for ${city} Events`
-
-    //display the states for selected city
-    displayStats(filteredEvents);
-}
 //display all the events on page
 function displayData() {
     let template = document.getElementById("eventData-template");
@@ -141,3 +124,8 @@ function updateCopyrightYear() {
     const currentYear = new Date().getFullYear();
     document.getElementById("copyrightYear").textContent = currentYear;
   }
+
+  // Add these lines at the bottom of site.js
+window.addEventListener('load', buildDropDown);
+document.getElementById("btnSaveData").addEventListener("click", saveData);
+// document.getElementById("ddEvents").addEventListener("change", getEvents);
