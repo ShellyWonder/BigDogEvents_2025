@@ -96,7 +96,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addData">Add
+                    <button class="btn btn-primary" id="btnShowModal" data-bs-toggle="modal" data-bs-target="#addData">Add
                         Data</button>
                 </div>
                 <table class="table table-striped" id="eventData">
@@ -162,51 +162,7 @@
     </div>
 </footer>
     <!--======MODAL SECTION====-->
-    <div class="modal" id="addData">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!--modal header goes here-->
-                <div class="modal-header">
-                    <h4 class="modal-title">Add a New Event</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <!--MOdal Body-->
-                <div class="modal-body">
-                    <form id="newEventForm">
-                        <div class="form-group">
-                            <label for="newEventName" class="form-label">Event Name</label>
-                            <input id="newEventName" type="text" class="form-control" placeholder="Event Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="newEventCity" class="form-label">Event City</label>
-                            <input id="newEventCity" type="text" class="form-control" placeholder="Event City">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="newEventState" class="form-label"> Event State</label>
-                            <select class="form-control" id="newEventState">
-                                <!-- Options populated by JavaScript -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="newEventAttendance" class="form-label">Event Attendance</label>
-                            <input id="newEventAttendance" type="text" class="form-control"
-                                placeholder="Event Attendance">
-                        </div>
-                        <div class="form-group">
-                            <label for="newEventDate" class="form-label">Event Date</label>
-                            <input id="newEventDate" type="date" class="form-control" placeholder="Event Date">
-                        </div>
-
-                    </form>
-                </div>
-                <!--MODAL FOOTER-->
-                <div class="modal-footer">
-                    <button type="button" id="btnSaveData" class="btn btn-primary" data-dismiss="modal">SAVE</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="modalContainer"></div>
     <!--====templates===-->
     <template id="eventData-template">
         <tr>
