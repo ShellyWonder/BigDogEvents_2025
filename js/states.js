@@ -1,4 +1,5 @@
 const states = [
+  { value: "", name: "Select State", isPlaceholder: true },
   { value: "AL", name: "Alabama" },
   { value: "AK", name: "Alaska" },
   { value: "AZ", name: "Arizona" },
@@ -58,10 +59,17 @@ export function populateStateDropdown() {
       console.log('Element with ID "newEventState" not found.');
       return;
     }
+    
     states.forEach(state => {
         const option = document.createElement('option');
         option.value = state.value;
         option.textContent = state.name;
+
+        if (state.isPlaceholder) {
+          option.disabled = true;
+          option.selected = true;
+          option.classList.add("placeholder-option");
+        }
         stateSelect.appendChild(option);
     });
 }

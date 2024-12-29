@@ -6,7 +6,6 @@
   --sjw-background-color: #01092b;
 }
 
-/*change logoFont with each project*/
 .logoFont {
   font-family: acumin-pro-wide, sans-serif;
   font-weight: 800;
@@ -26,6 +25,13 @@ h4,
 h5,
 h6 {
   color: var(--primary-color);
+}
+label {
+  color: var(--sjw-primary-color)!important;
+}
+
+.placeholder-option {
+  color: gray;
 }
 
 /*Navbar styles*/
