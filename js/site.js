@@ -1,16 +1,18 @@
 import { events, getEvents } from "./events.js";
 import { populateStateDropdown } from "./states.js";
-import { saveData } from "./formHandler.js";
+import { saveData, addDataModalTemplate } from "./formHandler.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     buildDropDown();
     updateCopyrightYear();
-    populateStateDropdown();
     window.getEvents = getEvents;
     
     // Insert modal into the DOM
     const modalContainer = document.getElementById('modalContainer');
-    modalContainer.innerHTML = modalTemplate;
+    modalContainer.innerHTML = addDataModalTemplate;
+
+    // Call populateStateDropdown after modal is added to the DOM
+    populateStateDropdown();
     // Modal setup
     const modalElement = document.getElementById('addData');
     const modalInstance = new bootstrap.Modal(modalElement);
@@ -27,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 //builds dropdrown of locales
-function buildDropDown() {
+export function buildDropDown() {
     //grab the event drop down we want to add cities to:
     let eventDD = document.getElementById("eventDropDown");
     eventDD.innerHTML = "";
@@ -53,7 +55,7 @@ function buildDropDown() {
     displayData();
 }
 
-function displayStats(filteredEvents) {
+ export function displayStats(filteredEvents) {
     const total = filteredEvents.reduce((sum, e) => sum + e.attendance, 0);
     const most = Math.max(...filteredEvents.map((e) => e.attendance));
     const least = Math.min(...filteredEvents.map((e) => e.attendance));
@@ -68,7 +70,7 @@ function displayStats(filteredEvents) {
     });
 }
 
-function displayData() {
+export function displayData() {
     const template = document.getElementById("eventData-template");
     const eventBody = document.getElementById("eventBody");
     eventBody.innerHTML = "";

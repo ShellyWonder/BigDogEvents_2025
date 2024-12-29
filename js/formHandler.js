@@ -1,5 +1,5 @@
 //FORM HANDLER JS
-
+import {displayData, buildDropDown } from "./site.js";
 // Form validation function
 export function validateForm() {
     const eventName = document.getElementById("newEventName").value.trim();
@@ -48,8 +48,7 @@ export const addDataModalTemplate = `
 <div class="modal" id="addData">
         <div class="modal-dialog">
             <div class="modal-content">
-                <!--modal header goes here-->
-                <div class="modal-header">
+                 <div class="modal-header">
                     <h4 class="modal-title">Add a New Event</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -70,7 +69,6 @@ export const addDataModalTemplate = `
                             <select class="form-control" id="newEventState">
                                 <!-- Options populated by JavaScript -->
                             </select>
-                            
                         </div>
                         <div class="form-group">
                             <label for="newEventAttendance" class="form-label">Event Attendance</label>

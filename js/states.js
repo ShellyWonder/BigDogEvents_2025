@@ -54,6 +54,10 @@ const states = [
 
 export function populateStateDropdown() {
     const stateSelect = document.getElementById('newEventState');
+    if (!stateSelect) {
+      console.log('Element with ID "newEventState" not found.');
+      return;
+    }
     states.forEach(state => {
         const option = document.createElement('option');
         option.value = state.value;
