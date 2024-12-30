@@ -3,48 +3,9 @@ import { displayData, buildDropDown } from "./site.js";
 // Form validation function
 import { events, getEvents } from "./events.js";
 import { populateStateDropdown } from "./states.js";
-import { saveData, addDataModalTemplate, clearFormFields} from "./formHandler.js";
+
 import { validationChecks,addOnBlurValidation } from "./validation.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-    buildDropDown();
-    updateCopyrightYear();
-    window.getEvents = getEvents;
-    
-    // Insert modal into the DOM
-    const modalContainer = document.getElementById('modalContainer');
-    modalContainer.innerHTML = addDataModalTemplate;
-
-    // Call populateStateDropdown after modal is added to the DOM
-    populateStateDropdown();
-    // Modal setup
-    const modalElement = document.getElementById('addData');
-    const modalInstance = new bootstrap.Modal(modalElement);
-
-    // Show the modal when needed
-    document.getElementById("btnShowModal").addEventListener("click", () => {
-        modalInstance.show();
-    });
-    document.getElementById("btnSaveData").addEventListener("click", (event) => {
-        event.preventDefault();
-        saveData();
-        buildDropDown();//refresh dropdown after save
-        displayData();
-    });
-    document.getElementById("btnClear").addEventListener("click", (event) => {
-        event.preventDefault();
-        clearFormFields();
-    });
-
-    addOnBlurValidation();
-    const form = document.getElementById("newEventForm");
-    form.addEventListener("submit", (event) => {
-      if (!validateForm()) {
-        event.preventDefault(); // Stop form submission if validation fails
-        alert("Please fix validation errors before submitting.");
-      }
-    });
-});
 //builds dropdrown of locales
 export function buildDropDown() {
     //grab the event drop down we want to add cities to:

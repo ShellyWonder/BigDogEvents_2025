@@ -1,13 +1,9 @@
-import { events, getEvents } from "./events.js";
-import { populateStateDropdown } from "./states.js";
-import { saveData, addDataModalTemplate, clearFormFields,addOnBlurValidation } from "./formHandler.js";
-
 // site.js
 import { events, getEvents } from "./events.js";
 import { populateStateDropdown } from "./states.js";
-import { saveData, addDataModalTemplate, clearFormFields, addOnBlurValidation } from "./formHandler.js";
+import { saveData, addDataModalTemplate, clearFormFields} from "./formHandler.js";
+import {  addOnBlurValidation } from "./validation.js";
 
-// Initialize on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
     buildDropDown();
     updateCopyrightYear();
