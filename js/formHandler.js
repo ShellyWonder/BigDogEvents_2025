@@ -49,7 +49,7 @@ export function saveData() {
   alert("Event saved successfully!");
   clearFormFields();
 }
-function clearFormFields() {
+export function clearFormFields() {
   document.getElementById("newEventName").value = "";
   document.getElementById("newEventCity").value = "";
   document.getElementById("newEventState").selectedIndex = 0; // Reset to first option
@@ -97,6 +97,7 @@ export const addDataModalTemplate = `
                 <!--MODAL FOOTER-->
                 <div class="modal-footer">
                     <button type="button" id="btnSaveData" class="btn btn-primary" data-dismiss="modal">SAVE</button>
+                    <button type="button" id="btnClear" class="btn btn-primary" data-dismiss="modal">CLEAR</button>
                 </div>
             </div>
         </div>

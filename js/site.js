@@ -1,6 +1,6 @@
 import { events, getEvents } from "./events.js";
 import { populateStateDropdown } from "./states.js";
-import { saveData, addDataModalTemplate } from "./formHandler.js";
+import { saveData, addDataModalTemplate, clearFormFields } from "./formHandler.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     buildDropDown();
@@ -26,6 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
         saveData();
         buildDropDown();//refresh dropdown after save
         displayData();
+    });
+    document.getElementById("btnClear").addEventListener("click", (event) => {
+        event.preventDefault();
+        clearFormFields();
     });
 });
 //builds dropdrown of locales
