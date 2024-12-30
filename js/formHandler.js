@@ -65,10 +65,12 @@ export const addDataModalTemplate = `
                         <div class="form-group">
                             <label for="newEventName" class="form-label">Event Name</label>
                             <input id="newEventName" type="text" class="form-control" >
+                            <div id="newEventNameError" class="text-danger"></div>
                         </div>
                         <div class="form-group">
                             <label for="newEventCity" class="form-label">Event City</label>
                             <input id="newEventCity" type="text" class="form-control" >
+                            <div id="newEventCityError" class="text-danger"></div>
                         </div>
 
                         <div class="form-group">
@@ -80,10 +82,12 @@ export const addDataModalTemplate = `
                         <div class="form-group">
                             <label for="newEventAttendance" class="form-label">Event Attendance</label>
                             <input id="newEventAttendance" type="text" class="form-control">
+                            <div id="newEventAttendanceError" class="text-danger"></div>
                         </div>
                         <div class="form-group">
                             <label for="newEventDate" class="form-label">Event Date</label>
                             <input id="newEventDate" type="date" class="form-control" >
+                            <div id="newEventDateError" class="text-danger"></div>
                         </div>
 
                     </form>
