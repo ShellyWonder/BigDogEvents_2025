@@ -54,49 +54,52 @@
     <main class="flex-shrink-0">
         <div class="container mt-5 p-4 gx-2">
             <div class="row row-cols-1 row-cols-md-2">
-                <div class="col-6">
-                    <div class="btn-group" role="group">
-                        <button id="btnCityDrop" type="button" class="btn btn-primary dropdown-toggle"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Pick Location
-                        </button>
-                        <ul class="dropdown-menu" id="eventDropDown" aria-labelledby="btnCityDrop">
-                            <!--MENU ITEMS GO HERE-->
-                        </ul>
+                <div class="d-flex align-items-center">
+                    <div class="col">
+                        <div class="btn-group" role="group">
+                            <button id="btnCityDrop" type="button" class="btn btn-primary dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Pick Location
+                            </button>
+                            <ul class="dropdown-menu" id="eventDropDown" aria-labelledby="btnCityDrop">
+                                <!--MENU ITEMS GO HERE-->
+                            </ul>
+                        </div>
+                        <table class="table table-striped mt-3">
+
+                            <tr>
+                                <th colspan="2" id="statsHeader" class="logoFont">Stats for All Events</th>
+                            </tr>
+                            <tr>
+                                <td >Total Attendance</td>
+                                <td id="total">100</td>
+                            </tr>
+                            <tr>
+                                <td >Average Attendance</td>
+                                <td id="average">100</td>
+                            </tr>
+                            <tr>
+                                <td >Most Attended</td>
+                                <td id="most">100</td>
+                            </tr>
+                            <tr>
+                                <td>Least Attended</td>
+                                <td id="least">100</td>
+                            </tr>
+
+                        </table>
                     </div>
-                    <table class="table table-striped mt-3">
-
-                        <tr>
-                            <th colspan="2" id="statsHeader" class="logoFont">Stats for All Events</th>
-                        </tr>
-                        <tr>
-                            <td >Total Attendance</td>
-                            <td id="total">100</td>
-                        </tr>
-                        <tr>
-                            <td >Average Attendance</td>
-                            <td id="average">100</td>
-                        </tr>
-                        <tr>
-                            <td >Most Attended</td>
-                            <td id="most">100</td>
-                        </tr>
-                        <tr>
-                            <td>Least Attended</td>
-                            <td id="least">100</td>
-                        </tr>
-
-                    </table>
                 </div>
                 <div class="col order-first order-md-last">
                     <!--ADD IMG TAG with img-fluid-->
                     <img src="/img/Big Dog logo.svg" class="img-fluid" alt="big dog logo">
 
                 </div>
+              
             </div>
             <div class="row">
                 <div class="col">
-                    <button class="btn btn-primary" id="btnShowModal" data-bs-toggle="modal" data-bs-target="#addData">Add
+                    <button class="btn btn-primary mb-4" id="btnShowModal" data-bs-toggle="modal" data-bs-target="#addData">Add
                         Events</button>
                 </div>
                 <table class="table table-striped" id="eventData">
