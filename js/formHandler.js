@@ -1,6 +1,115 @@
 //FORM HANDLER JS
 import { displayData, buildDropDown } from "./site.js";
 // Form validation function
+import { events, getEvents } from "./events.js";
+import { populateStateDropdown } from "./states.js";
+import { saveData, addDataModalTemplate, clearFormFields} from "./formHandler.js";
+import { validationChecks,addOnBlurValidation } from "./validation.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+    buildDropDown();
+    updateCopyrightYear();
+    window.getEvents = getEvents;
+    
+    // Insert modal into the DOM
+    const modalContainer = document.getElementById('modalContainer');
+    modalContainer.innerHTML = addDataModalTemplate;
+
+    // Call populateStateDropdown after modal is added to the DOM
+    populateStateDropdown();
+    // Modal setup
+    const modalElement = document.getElementById('addData');
+    const modalInstance = new bootstrap.Modal(modalElement);
+
+    // Show the modal when needed
+    document.getElementById("btnShowModal").addEventListener("click", () => {
+        modalInstance.show();
+    });
+    document.getElementById("btnSaveData").addEventListener("click", (event) => {
+        event.preventDefault();
+        saveData();
+        buildDropDown();//refresh dropdown after save
+        displayData();
+    });
+    document.getElementById("btnClear").addEventListener("click", (event) => {
+        event.preventDefault();
+        clearFormFields();
+    });
+
+    addOnBlurValidation();
+    const form = document.getElementById("newEventForm");
+    form.addEventListener("submit", (event) => {
+      if (!validateForm()) {
+        event.preventDefault(); // Stop form submission if validation fails
+        alert("Please fix validation errors before submitting.");
+      }
+    });
+});
+//builds dropdrown of locales
+export function buildDropDown() {
+    //grab the event drop down we want to add cities to:
+    let eventDD = document.getElementById("eventDropDown");
+    eventDD.innerHTML = "";
+    //load links from template
+    let ddTemplate = document.getElementById("cityDD-template");
+
+    let curEvents = JSON.parse(localStorage.getItem("eventsArray")) || events;
+    //list of cities--create distinct list--no dupes--filter array
+    const distinctCities = [...new Set(curEvents.map((e) => e.city))];
+
+    //Use the template construction for the dropdown
+    const addCityToDropdown = (city) => {
+        const ddItemTemplate = document.importNode(ddTemplate.content, true);
+        const li = ddItemTemplate.querySelector("li");
+        const ddItem = ddItemTemplate.querySelector("a");
+        ddItem.setAttribute("data-city", city);
+        ddItem.textContent = city;
+        eventDD.appendChild(li);
+    };
+    addCityToDropdown("All");
+    distinctCities.forEach(addCityToDropdown);
+    displayStats(curEvents);
+    displayData();
+}
+
+ export function displayStats(filteredEvents) {
+    const total = filteredEvents.reduce((sum, e) => sum + e.attendance, 0);
+    const most = Math.max(...filteredEvents.map((e) => e.attendance));
+    const least = Math.min(...filteredEvents.map((e) => e.attendance));
+    const average = (total / filteredEvents.length) || 0;
+
+    document.getElementById("total").textContent = total.toLocaleString();
+    document.getElementById("most").textContent = most.toLocaleString();
+    document.getElementById("least").textContent = least.toLocaleString();
+    document.getElementById("average").textContent = average.toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    });
+}
+
+export function displayData() {
+    const template = document.getElementById("eventData-template");
+    const eventBody = document.getElementById("eventBody");
+    eventBody.innerHTML = "";
+
+    const curEvents = JSON.parse(localStorage.getItem("eventsArray")) || [];
+    if (curEvents.length === 0) {
+        localStorage.setItem("eventsArray", JSON.stringify(events));
+        curEvents.push(...events);
+    }
+    curEvents.forEach((e) => {
+        const eventRow = document.importNode(template.content, true);
+        const eventCols = eventRow.querySelectorAll("td");
+        eventCols[0].textContent = e.event;
+        eventCols[1].textContent = e.city;
+        eventCols[2].textContent = e.state;
+        eventCols[3].textContent = e.attendance;
+        eventCols[4].textContent = new Date(e.date).toLocaleDateString();
+        eventBody.appendChild(eventRow);
+    });
+}
+
+// Form validation function
 export function validateForm() {
   const eventName = document.getElementById("newEventName").value.trim();
   const eventCity = document.getElementById("newEventCity").value.trim();
@@ -102,77 +211,3 @@ export const addDataModalTemplate = `
     </div>
 `;
 
-//validation helper functions
-function validationChecks(eventName, eventCity, eventAttendance, eventDate) {
-  if (
-    !validateEventName(eventName) ||
-    !validateEventCity(eventCity) ||
-    !validateEventAttendance(eventAttendance) ||
-    !validateEventDate(eventDate)
-  ) {
-    return false;
-  }
-
-  return true; // All validations passed
-}
-function validateEventName(eventName) {
-  if (!eventName) {
-    alert("Event name is required.");
-    return false;
-  }
-  if (eventName.length < 2 || eventName.length > 75) {
-    alert("Event name must be between 2 and 75 characters.");
-    return false;
-  }
-  return true;
-}
-// Validate Event City
-function validateEventCity(eventCity) {
-  if (!eventCity) {
-    alert("Event city is required.");
-    return false;
-  }
-  if (eventCity.length < 2 || eventCity.length > 50) {
-    alert("Event city name must be between 2 and 50 characters.");
-    return false;
-  }
-  return true;
-}
-// Validate Event Attendance
-function validateEventAttendance(eventAttendance) {
-  if (!eventAttendance) {
-    alert("Event attendance is required.");
-    return false;
-  }
-  if (isNaN(eventAttendance)) {
-    alert("Event attendance must be a valid number.");
-    return false;
-  }
-  if (parseInt(eventAttendance, 10) <= 0) {
-    alert("Event attendance must be a positive number.");
-    return false;
-  }
-  if (eventAttendance.length < 1 || eventAttendance.length > 7) {
-    alert("Event attendance must be between 1 and 7 digits.");
-    return false;
-  }
-  return true;
-}
-
-function validateEventDate(eventDate) {
-  // Validate Event Date
-  if (!eventDate) {
-    alert("Event date is required.");
-    return false;
-  }
-  const today = new Date();
-  const selectedDate = new Date(eventDate);
-
-  // Ensure the date is in the past
-  if (selectedDate >= today) {
-    alert("Event date cannot be in the future.");
-    return false;
-  }
-
-  return true;
-}

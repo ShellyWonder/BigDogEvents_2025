@@ -1,7 +1,13 @@
 import { events, getEvents } from "./events.js";
 import { populateStateDropdown } from "./states.js";
-import { saveData, addDataModalTemplate, clearFormFields } from "./formHandler.js";
+import { saveData, addDataModalTemplate, clearFormFields,addOnBlurValidation } from "./formHandler.js";
 
+// site.js
+import { events, getEvents } from "./events.js";
+import { populateStateDropdown } from "./states.js";
+import { saveData, addDataModalTemplate, clearFormFields, addOnBlurValidation } from "./formHandler.js";
+
+// Initialize on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
     buildDropDown();
     updateCopyrightYear();
@@ -24,14 +30,24 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btnSaveData").addEventListener("click", (event) => {
         event.preventDefault();
         saveData();
-        buildDropDown();//refresh dropdown after save
+        buildDropDown(); //refresh dropdown after save
         displayData();
     });
     document.getElementById("btnClear").addEventListener("click", (event) => {
         event.preventDefault();
         clearFormFields();
     });
+
+    addOnBlurValidation();
+    const form = document.getElementById("newEventForm");
+    form.addEventListener("submit", (event) => {
+      if (!validateForm()) {
+        event.preventDefault(); // Stop form submission if validation fails
+        alert("Please fix validation errors before submitting.");
+      }
+    });
 });
+
 //builds dropdrown of locales
 export function buildDropDown() {
     //grab the event drop down we want to add cities to:
@@ -101,5 +117,4 @@ function updateCopyrightYear() {
     document.getElementById("copyrightYear").textContent = currentYear;
   }
 
-window.addEventListener('load', buildDropDown);
 
