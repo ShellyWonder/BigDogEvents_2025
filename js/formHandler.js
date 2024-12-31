@@ -1,37 +1,7 @@
 //FORM HANDLER JS
-import { displayData, buildDropDown } from "./site.js";
-// Form validation function
-import { events, getEvents } from "./events.js";
-import { populateStateDropdown } from "./states.js";
-
-import { validationChecks,addOnBlurValidation } from "./validation.js";
-
-//builds dropdrown of locales
-export function buildDropDown() {
-    //grab the event drop down we want to add cities to:
-    let eventDD = document.getElementById("eventDropDown");
-    eventDD.innerHTML = "";
-    //load links from template
-    let ddTemplate = document.getElementById("cityDD-template");
-
-    let curEvents = JSON.parse(localStorage.getItem("eventsArray")) || events;
-    //list of cities--create distinct list--no dupes--filter array
-    const distinctCities = [...new Set(curEvents.map((e) => e.city))];
-
-    //Use the template construction for the dropdown
-    const addCityToDropdown = (city) => {
-        const ddItemTemplate = document.importNode(ddTemplate.content, true);
-        const li = ddItemTemplate.querySelector("li");
-        const ddItem = ddItemTemplate.querySelector("a");
-        ddItem.setAttribute("data-city", city);
-        ddItem.textContent = city;
-        eventDD.appendChild(li);
-    };
-    addCityToDropdown("All");
-    distinctCities.forEach(addCityToDropdown);
-    displayStats(curEvents);
-    displayData();
-}
+import {  buildDropDown } from "./site.js";
+import { events } from "./events.js";
+import { validationChecks } from "./validation.js";
 
  export function displayStats(filteredEvents) {
     const total = filteredEvents.reduce((sum, e) => sum + e.attendance, 0);
@@ -70,17 +40,6 @@ export function displayData() {
     });
 }
 
-// Form validation function
-export function validateForm() {
-  const eventName = document.getElementById("newEventName").value.trim();
-  const eventCity = document.getElementById("newEventCity").value.trim();
-  const eventAttendance = document
-    .getElementById("newEventAttendance")
-    .value.trim();
-  const eventDate = document.getElementById("newEventDate").value;
-  // Stop validation if any function fails
-  return validationChecks(eventName, eventCity, eventAttendance, eventDate);
-}
 
 // Save data to localStorage
 export function saveData() {

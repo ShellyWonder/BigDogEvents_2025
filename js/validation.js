@@ -1,4 +1,16 @@
 // validation.js
+// Form validation function
+export function validateForm() {
+    const eventName = document.getElementById("newEventName").value.trim();
+    const eventCity = document.getElementById("newEventCity").value.trim();
+    const eventAttendance = document
+      .getElementById("newEventAttendance")
+      .value.trim();
+    const eventDate = document.getElementById("newEventDate").value;
+    // Stop validation if any function fails
+    return validationChecks(eventName, eventCity, eventAttendance, eventDate);
+  }
+  
 // Validate Event Name
 export function validateEventName(eventName) {
     if (!eventName) {

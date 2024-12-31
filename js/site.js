@@ -1,8 +1,8 @@
 // site.js
 import { events, getEvents } from "./events.js";
 import { populateStateDropdown } from "./states.js";
-import { saveData, addDataModalTemplate, clearFormFields} from "./formHandler.js";
-import {  addOnBlurValidation } from "./validation.js";
+import { saveData, addDataModalTemplate, clearFormFields, displayData} from "./formHandler.js";
+import { validateForm, addOnBlurValidation } from "./validation.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     buildDropDown();
@@ -25,9 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     document.getElementById("btnSaveData").addEventListener("click", (event) => {
         event.preventDefault();
-        saveData();
-        buildDropDown(); //refresh dropdown after save
-        displayData();
+        if (validateForm()) {
+            saveData();
+            buildDropDown(); // Refresh dropdown after save
+            displayData();
+    } else {
+        alert("Please fix validation errors before submitting.");
+    }
     });
     document.getElementById("btnClear").addEventListener("click", (event) => {
         event.preventDefault();
@@ -85,32 +89,9 @@ export function buildDropDown() {
         maximumFractionDigits: 0,
     });
 }
-
-export function displayData() {
-    const template = document.getElementById("eventData-template");
-    const eventBody = document.getElementById("eventBody");
-    eventBody.innerHTML = "";
-
-    const curEvents = JSON.parse(localStorage.getItem("eventsArray")) || [];
-    if (curEvents.length === 0) {
-        localStorage.setItem("eventsArray", JSON.stringify(events));
-        curEvents.push(...events);
-    }
-    curEvents.forEach((e) => {
-        const eventRow = document.importNode(template.content, true);
-        const eventCols = eventRow.querySelectorAll("td");
-        eventCols[0].textContent = e.event;
-        eventCols[1].textContent = e.city;
-        eventCols[2].textContent = e.state;
-        eventCols[3].textContent = e.attendance;
-        eventCols[4].textContent = new Date(e.date).toLocaleDateString();
-        eventBody.appendChild(eventRow);
-    });
-}
-
 function updateCopyrightYear() {
     const currentYear = new Date().getFullYear();
     document.getElementById("copyrightYear").textContent = currentYear;
   }
-
+  
 
