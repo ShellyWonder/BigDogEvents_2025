@@ -1,7 +1,7 @@
 //FORM HANDLER JS
 import {  buildDropDown } from "./site.js";
 import { events } from "./events.js";
-import { validationChecks } from "./validation.js";
+import { validateForm } from "./validation.js";
 
  export function displayStats(filteredEvents) {
     const total = filteredEvents.reduce((sum, e) => sum + e.attendance, 0);

@@ -2,7 +2,7 @@
 import { events, getEvents } from "./events.js";
 import { populateStateDropdown } from "./states.js";
 import { saveData, addDataModalTemplate, clearFormFields, displayData} from "./formHandler.js";
-import { validateForm, addOnBlurValidation } from "./validation.js";
+import { validateForm, addOnBlurValidation, validateEventName, validateEventCity, validateEventAttendance, validateEventDate  } from "./validation.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     buildDropDown();
@@ -23,6 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btnShowModal").addEventListener("click", () => {
         modalInstance.show();
     });
+    // Add onBlur validation for form inputs
+    addOnBlurValidation(validateEventName, 
+                        validateEventCity, 
+                        validateEventAttendance, 
+                        validateEventDate);
     document.getElementById("btnSaveData").addEventListener("click", (event) => {
         event.preventDefault();
         if (validateForm()) {
@@ -38,14 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearFormFields();
     });
 
-    addOnBlurValidation();
-    const form = document.getElementById("newEventForm");
-    form.addEventListener("submit", (event) => {
-      if (!validateForm()) {
-        event.preventDefault(); // Stop form submission if validation fails
-        alert("Please fix validation errors before submitting.");
-      }
-    });
+   
 });
 
 //builds dropdrown of locales
