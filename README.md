@@ -89,11 +89,12 @@ js
 - **site.css**: Contains global styling for the application.
 
 ### JavaScript
-- **events.js**: Handles event listeners and interactions.
+- **events.js**: Holds default event data and handles data storage and retrieval to the browser's local storage.
 - **formHandler.js**: Manages form submissions and data handling.
 - **home.js**: Contains logic and scripts specific to the homepage.
-- **states.js**: Stores US states for use in dropdown menus in forms.
+- **states.js**: Stores US states for use in form's dropdown select list.
 - **validation.js**: Implements form validation logic to ensure data integrity.
+- **app.js**: The main JavaScript file that initializes and manages the app.html page.
 
 ### Images
 - **logos**: Stores brand logos.
