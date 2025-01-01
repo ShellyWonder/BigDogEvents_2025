@@ -87,7 +87,7 @@ export function buildDropDown() {
         maximumFractionDigits: 0,
     });
 }
-function updateCopyrightYear() {
+export function updateCopyrightYear() {
     const currentYear = new Date().getFullYear();
     document.getElementById("copyrightYear").textContent = currentYear;
   }
