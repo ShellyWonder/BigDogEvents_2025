@@ -11,7 +11,9 @@
   font-weight: 800;
   font-style: normal;
 }
-
+.title{
+  color: var(--sjw-primary-color)!important;
+}
 main > .container {
   padding: 60px 15px 0;
   margin-bottom: 5rem;
@@ -33,7 +35,10 @@ label {
 .placeholder-option {
   color: gray;
 }
-
+.colHeader {
+  color: var(--sjw-light-color)!important;
+  background-color: var(--sjw-primary-color)!important;
+}
 /*Navbar styles*/
 .bg-dark {
   background-color: var(--sjw-dark-color) !important;
