@@ -89,10 +89,8 @@ export function validateEventDate(value) {
   ];
   return validateField(value, rules).isValid;
 }
-
-  
-  
-export function addFocusOutValidation(validateEventName, validateEventCity, validateEventAttendance, validateEventDate) {
+// Add focus out validation for form inputs
+export function addFocusOutValidation() {
   const fields = [
       { inputId: "newEventName", errorId: "newEventNameError", validator: validateEventName, errorMessage: "Event name is invalid." },
       { inputId: "newEventCity", errorId: "newEventCityError", validator: validateEventCity, errorMessage: "Event city is invalid." },
