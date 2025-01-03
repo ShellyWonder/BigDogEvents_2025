@@ -91,27 +91,37 @@ export function validateEventDate(value) {
 }
 
   
-  // Validation onBlur
-  export function addOnBlurValidation(validateEventName, validateEventCity, validateEventAttendance, validateEventDate ) {
-    const fields = [
-        { inputId: "newEventName", errorId: "newEventNameError", validator: validateEventName, errorMessage: "Event name is invalid." },
-        { inputId: "newEventCity", errorId: "newEventCityError", validator: validateEventCity, errorMessage: "Event city is invalid." },
-        { inputId: "newEventAttendance", errorId: "newEventAttendanceError", validator: validateEventAttendance, errorMessage: "Event attendance is invalid." },
-        { inputId: "newEventDate", errorId: "newEventDateError", validator: validateEventDate, errorMessage: "Event date is invalid." }
-    ];
+  
+export function addFocusOutValidation(validateEventName, validateEventCity, validateEventAttendance, validateEventDate) {
+  const fields = [
+      { inputId: "newEventName", errorId: "newEventNameError", validator: validateEventName, errorMessage: "Event name is invalid." },
+      { inputId: "newEventCity", errorId: "newEventCityError", validator: validateEventCity, errorMessage: "Event city is invalid." },
+      { inputId: "newEventAttendance", errorId: "newEventAttendanceError", validator: validateEventAttendance, errorMessage: "Event attendance is invalid." },
+      { inputId: "newEventDate", errorId: "newEventDateError", validator: validateEventDate, errorMessage: "Event date is invalid." }
+  ];
 
-    fields.forEach(({ inputId, errorId, validator, errorMessage }) => {
-        const input = document.getElementById(inputId);
-        const errorContainer = document.getElementById(errorId);
+  fields.forEach(({ inputId, errorId, validator, errorMessage }) => {
+      const input = document.getElementById(inputId);
+      const errorContainer = document.getElementById(errorId);
 
-        if (input && errorContainer) {
-            input.addEventListener("blur", () => {
-                const isValid = validator(input.value.trim());
-                errorContainer.textContent = isValid ? "" : errorMessage;
-            });
-        }
-    });
+      if (input && errorContainer) {
+          input.addEventListener("focusout", (event) => {
+              const value = input.value.trim();
+              const isValid = validator(value);
+
+              if (isValid) {
+                  errorContainer.textContent = ""; // Clear the error message
+              } else {
+                  event.preventDefault(); // Prevent the focus from moving
+                  errorContainer.textContent = errorMessage; // Display the error message
+                  input.value = ""; // Clear the input field
+                  input.focus(); // Refocus the invalid field
+              }
+          });
+      }
+  });
 }
 
-  
+
+
   

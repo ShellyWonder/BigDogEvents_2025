@@ -2,7 +2,7 @@
 import { events, getEvents } from "./events.js";
 import { populateStateDropdown } from "./states.js";
 import { saveData, addDataModalTemplate, clearFormFields, displayData} from "./formHandler.js";
-import { validateForm, addOnBlurValidation, validateEventName, validateEventCity, validateEventAttendance, validateEventDate  } from "./validation.js";
+import { validateForm, addFocusOutValidation, validateEventName, validateEventCity, validateEventAttendance, validateEventDate  } from "./validation.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     buildDropDown();
@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btnShowModal").addEventListener("click", () => {
         modalInstance.show();
     });
-    // Add onBlur validation for form inputs
-    addOnBlurValidation(validateEventName, 
+    // Add focus out validation for form inputs
+    addFocusOutValidation(validateEventName, 
                         validateEventCity, 
                         validateEventAttendance, 
                         validateEventDate);
