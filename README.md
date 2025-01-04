@@ -75,8 +75,8 @@ js
 ├── events.js
 ├── formHandler.js
 ├── home.js
-├── states.js   # Holds US states for form dropdown
-├── validation.js   # Contains form validation logic
+├── states.js   
+├── validation.js   
 ```
 
 ## Project Details
@@ -136,4 +136,4 @@ This project is licensed under the [MIT License](LICENSE).
 Thank you for exploring BIG DOG EVENTS!
 
 ## Project Status
-Project is currently in development.
+Project : Portfolio Ready
