@@ -53,7 +53,7 @@ BIG DOG EVENTS is built using:
 
 
 ### External Links
-- **[GitHub Repository](https://github.com/ShellyWonder/BigDogEvents_2022)**: Explore the source code.
+- **[GitHub Repository](https://github.com/ShellyWonder/BigDogEvents_2025)**: Explore the source code.
 - **[Contact](http://www.wonderwebdev.com/#contact)**: Reach out for queries or collaboration.
 
 ---
